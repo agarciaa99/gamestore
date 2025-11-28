@@ -1,0 +1,613 @@
+:root {
+  --bg-main: #121212;
+  --bg-card: #1e1e1e;
+  --accent: #0078f2;
+  --accent-hover: #0056b3;
+  --green: #2fa134;
+  --text: #e0e0e0;
+  --glass: rgba(30, 30, 30, 0.8);
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg-main);
+  color: var(--text);
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header & Nav */
+header {
+  background: rgba(18, 18, 18, 0.95);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #333;
+  backdrop-filter: blur(10px);
+}
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- CONTENEDOR CENTRAL (Para Historial, Carrito, etc) --- */
+.container {
+  max-width: 1000px; /* Ancho máximo para que no se estire */
+  margin: 40px auto; /* Centrado automático y espacio arriba/abajo */
+  padding: 0 20px; /* Un poco de aire a los lados en móviles */
+  min-height: 60vh; /* Altura mínima para que no se vea vacío */
+}
+
+/* Títulos de las páginas internas */
+.container h1 {
+  color: white;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+/* Buscador en Header */
+.search-bar form {
+  display: flex;
+  background: #2a2a2a;
+  border-radius: 50px;
+  padding: 5px 15px;
+  border: 1px solid #444;
+}
+.search-bar input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  width: 300px;
+}
+.search-bar button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  padding: 0;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+.cart-btn {
+  background: var(--accent);
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: white;
+}
+
+/* HERO BANNER */
+.hero {
+  height: 400px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+    url("https://i.redd.it/8m1e66o7pyka1.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10%;
+  margin-bottom: 30px;
+}
+.hero-content {
+  max-width: 500px;
+}
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  text-shadow: 0 4px 10px black;
+}
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+.btn-hero {
+  background: white;
+  color: black;
+  padding: 12px 30px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+.btn-hero:hover {
+  transform: scale(1.05);
+}
+
+/* Layout Principal (Sidebar + Grid) */
+.main-layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
+  padding: 0 20px;
+}
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+}
+.sidebar h3 {
+  color: var(--accent);
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin-bottom: 10px;
+}
+.sidebar a {
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+  color: #aaa;
+}
+.sidebar a:hover,
+.sidebar a.active {
+  background: #2a2a2a;
+  color: white;
+  padding-left: 15px;
+}
+
+.grid-container {
+  flex-grow: 1;
+}
+.section-title {
+  margin-top: 0;
+  border-left: 5px solid var(--accent);
+  padding-left: 15px;
+}
+
+/* Cards mejoradas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.card-img-wrap {
+  position: relative;
+  height: 300px;
+} /* Más altas */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rating-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: gold;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card-info {
+  padding: 15px;
+}
+.card h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.tag {
+  background: #333;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #aaa;
+}
+.price {
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Modal */
+/* --- MODAL MEJORADO (Estilo Tarjeta Premium) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Fondo más oscuro para enfoque */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px); /* Desenfoque elegante */
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #121212; /* Fondo casi negro */
+  width: 850px;
+  max-width: 90%;
+  height: 500px; /* Altura fija para uniformidad */
+  max-height: 90vh; /* Que nunca se salga de la pantalla */
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden; /* Recorta la imagen en las esquinas */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  border: 1px solid #333;
+  position: relative;
+  animation: zoomIn 0.3s ease;
+}
+
+.modal-img {
+  flex: 1.2;
+  background: #000;
+  position: relative;
+}
+
+.modal-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+.modal-info {
+  flex: 1;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #121212;
+}
+
+.modal-info h2 {
+  margin: 0 0 10px 0;
+  color: white;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.stars {
+  color: #ffc107;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.desc {
+  color: #b0b0b0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: auto;
+  max-height: 100px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.specs {
+  margin: 20px 0;
+  font-size: 13px;
+  color: #666;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+.big-price {
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+  margin: 10px 0 20px 0;
+  letter-spacing: -1px;
+}
+
+.btn-add-cart {
+  background: #2fa134;
+  color: white;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+.btn-add-cart:hover {
+  background: #37bd3d;
+  transform: translateY(-2px);
+}
+
+.btn-steam-blue {
+  color: #0078f2;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+}
+.close-btn:hover {
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive para celulares */
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    height: auto;
+    max-height: 95vh;
+    overflow-y: auto;
+    width: 95%;
+  }
+  .modal-img {
+    height: 200px;
+    flex: none;
+  }
+  .modal-img img {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .modal-info {
+    padding: 20px;
+  }
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #2fa134; /* Verde éxito */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10000; /* SUPER IMPORTANTE: Por encima de todo */
+
+  /* Animación de entrada */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease-out;
+  pointer-events: none; /* Para no bloquear clics si es invisible */
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Login/Register Forms (Estilo Box) */
+.auth-box {
+  max-width: 400px;
+  margin: 100px auto;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #333;
+}
+.auth-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1e1e1e;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+th {
+  background: #2a2a2a;
+  color: #aaa;
+  padding: 15px;
+  text-align: left;
+}
+td {
+  padding: 15px;
+  border-bottom: 1px solid #333;
+}
+.qty-btn {
+  background: #333;
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* --- NUEVO: Botón de Compra estilo Steam --- */
+.cart-total-bar {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 20px 0 10px 0;
+  text-align: right;
+  letter-spacing: -1px;
+}
+
+.btn-purchase {
+  background: linear-gradient(to bottom, #0722d0 5%, #10387e 95%);
+  color: #d2efa9;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: "Motiva Sans", sans-serif;
+  font-size: 18px;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  width: auto;
+  margin-top: 15px;
+}
+
+/* .btn-purchase:hover {
+  background: linear-gradient(to bottom, #b6d908 5%, #80b020 95%);
+  color: white;
+  transform: scale(1.02);
+} */
+
+/* ... (Todo tu CSS anterior) ... */
+
+/* Estilo para el selector de cantidad en el modal */
+.qty-selector {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-selector label {
+  font-size: 12px;
+  color: #8f98a0;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.steam-input {
+  background-color: #000;
+  border: 1px solid #444;
+  color: white;
+  padding: 8px;
+  width: 60px;
+  border-radius: 2px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.steam-input:focus {
+  border-color: #66c0f4;
+  outline: none;
+}
+
+/* Ajuste para inputs de tipo number (quitar flechitas feas en algunos navegadores) */
+.steam-input::-webkit-outer-spin-button,
+.steam-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.steam-input {
+  -moz-appearance: textfield;
+}

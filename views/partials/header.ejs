@@ -1,0 +1,27 @@
+<header>
+  <nav>
+    <a href="/" class="logo"> GAMESTORE </a>
+
+    <div class="search-bar">
+      <form action="/" method="GET">
+        <input
+          type="text"
+          name="search"
+          placeholder="Buscar..."
+          value="<%= typeof activeSearch !== 'undefined' ? activeSearch : '' %>"
+        />
+      </form>
+    </div>
+
+    <div class="menu">
+      <% if (user) { %>
+      <a href="/history">BIBLIOTECA</a>
+      <span class="user-name"><%= user.nombre %></span>
+      <a href="/logout">SALIR</a>
+      <% } else { %>
+      <a href="/login">ENTRAR</a>
+      <% } %>
+      <a href="/cart" class="cart-btn">Carrito <%= cartCount %> </a>
+    </div>
+  </nav>
+</header>

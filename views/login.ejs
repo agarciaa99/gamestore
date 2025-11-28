@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="auth-box">
+      <h2>INICIAR SESIÓN</h2>
+      <% if(error) { %>
+      <p class="error"><%= error %></p>
+      <% } %>
+      <form action="/login" method="POST">
+        <label>NOMBRE DE CUENTA O CORREO</label>
+        <input type="email" name="email" required />
+        <label>CONTRASEÑA</label>
+        <input type="password" name="password" required />
+        <button class="btn-steam-blue" style="margin-top: 20px">
+          Iniciar sesión
+        </button>
+      </form>
+      <p class="auth-link">
+        ¿No tienes cuenta? <a href="/register">Únete a GameStore</a>
+      </p>
+    </div>
+  </body>
+</html>

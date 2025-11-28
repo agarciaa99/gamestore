@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="container">
+      <h1>TU CARRO DE LA COMPRA</h1>
+      <% if (cart.length === 0) { %>
+      <div class="empty-msg">
+        Tu carro está vacío. <a href="/">Ir a la tienda</a>
+      </div>
+      <% } else { %>
+      <table class="steam-table">
+        <thead>
+          <tr>
+            <th>ARTÍCULO</th>
+            <th>PRECIO</th>
+            <th>CANTIDAD</th>
+            <th>SUBTOTAL</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cart.forEach(item => { %>
+          <tr>
+            <td class="flex-td">
+              <img src="<%= item.imagen %>" width="80" />
+              <span><%= item.nombre %></span>
+            </td>
+            <td>MX$ <%= item.precio %></td>
+            <td>
+              <button class="qty-btn" onclick="upd('<%= item.id %>', 'restar')">
+                -
+              </button>
+              <span class="qty-num"><%= item.cantidad %></span>
+              <button class="qty-btn" onclick="upd('<%= item.id %>', 'sumar')">
+                +
+              </button>
+            </td>
+            <td class="subtotal">MX$ <%= item.precio * item.cantidad %></td>
+            <td>
+              <a href="/cart/remove/<%= item.id %>" class="link-remove"
+                >Eliminar</a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <div class="cart-total-bar">
+        <div>
+          Total estimado:
+          <span class="total-price"
+            >MX$ <span id="total"><%= total %></span></span
+          >
+        </div>
+        <% if(user) { %>
+        <form action="/checkout" method="POST">
+          <button class="btn-purchase">Comprar para mí</button>
+        </form>
+        <% } else { %>
+        <a href="/login" class="btn-steam-blue">Inicia Sesión para comprar</a>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <script>
+      async function upd(id, accion) {
+        const res = await fetch("/cart/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, accion }),
+        });
+        const d = await res.json();
+        if (d.success) location.reload();
+      }
+    </script>
+  </body>
+</html>

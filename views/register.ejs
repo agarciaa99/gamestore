@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="auth-box">
+      <h2>CREAR TU CUENTA</h2>
+      <% if(error) { %>
+      <p class="error"><%= error %></p>
+      <% } %>
+      <form action="/register" method="POST">
+        <label>NOMBRE PÚBLICO</label>
+        <input type="text" name="nombre" required />
+        <label>CORREO ELECTRÓNICO</label>
+        <input type="email" name="email" required />
+        <label>CONTRASEÑA</label>
+        <input type="password" name="password" required />
+        <button class="btn-steam-blue" style="margin-top: 20px">
+          Completar registro
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

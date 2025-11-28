@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="container">
+      <h1>Historial de Compras</h1>
+      <table class="steam-table">
+        <thead>
+          <tr>
+            <th>FECHA</th>
+            <th>ARTÍCULOS</th>
+            <th>TOTAL</th>
+            <th>RECIBO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% ventas.forEach(v => { %>
+          <tr>
+            <td><%= new Date(v.fecha).toLocaleDateString() %></td>
+            <td>Orden #<%= v.id %></td>
+            <td>MX$ <%= v.total %></td>
+            <td>
+              <a
+                href="/ticket/<%= v.id %>"
+                class="btn-steam-blue"
+                style="padding: 5px 10px"
+                >Ver Recibo</a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GameStore</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('partials/header') %> <% if (showToast) { %>
+    <div id="toast" class="toast visible">
+      <i class="ri-checkbox-circle-fill"></i> ¡Producto agregado con éxito!
+    </div>
+    <script>
+      setTimeout(() => {
+        const t = document.getElementById("toast");
+        if (t) {
+          t.classList.remove("visible");
+          setTimeout(() => t.remove(), 500);
+        }
+      }, 3000);
+    </script>
+    <% } %>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1>ELDEN RING: SHADOW OF THE ERDTREE</h1>
+        <p>
+          La expansión del juego del año ya está aquí. Explora las tierras
+          sombrías.
+        </p>
+        <button
+          class="btn-hero"
+          onclick="window.scrollTo({top: 800, behavior: 'smooth'})"
+        >
+          VER OFERTAS
+        </button>
+      </div>
+    </div>
+
+    <div class="main-layout">
+      <aside class="sidebar">
+        <h3>Categorías</h3>
+        <ul>
+          <li>
+            <a href="/" class="<%= activeCat === '' ? 'active' : '' %>">Todo</a>
+          </li>
+          <% categorias.forEach(c => { %>
+          <li>
+            <a
+              href="/?cat=<%= c.categoria %>"
+              class="<%= activeCat === c.categoria ? 'active' : '' %>"
+            >
+              <%= c.categoria %>
+            </a>
+          </li>
+          <% }) %>
+        </ul>
+      </aside>
+
+      <div class="grid-container">
+        <h2 class="section-title">
+          <%= activeCat ? activeCat : 'Catálogo Completo' %>
+        </h2>
+
+        <div class="grid">
+          <% productos.forEach(p => { %>
+          <div
+            class="card"
+            data-id="<%= p.id %>"
+            data-title="<%= p.nombre %>"
+            data-price="<%= p.precio %>"
+            data-weight="<%= p.peso %>"
+            data-desc="<%= p.descripcion %>"
+            data-img="<%= p.imagen %>"
+            data-rating="<%= p.rating %>"
+            onclick="openModalFromData(this)"
+          >
+            <div class="card-img-wrap">
+              <img src="<%= p.imagen %>" alt="<%= p.nombre %>" />
+              <div class="rating-badge">
+                <i class="ri-star-fill"></i> <%= p.rating %>.0
+              </div>
+            </div>
+            <div class="card-info">
+              <h3><%= p.nombre %></h3>
+              <div class="tags">
+                <span class="tag"><%= p.categoria %></span>
+                <span class="tag"><%= p.peso %></span>
+              </div>
+              <div class="price-row">
+                <span class="price">MX$ <%= p.precio %></span>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <div id="gameModal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <div class="modal-img">
+          <img id="m-img" src="" alt="Portada" />
+        </div>
+
+        <div class="modal-info">
+          <h2 id="m-title">Título</h2>
+          <div id="m-stars" class="stars"></div>
+          <p id="m-desc" class="desc">Descripción...</p>
+          <div class="specs">
+            <p><strong>PESO:</strong> <span id="m-peso"></span></p>
+          </div>
+          <div class="big-price">MX$ <span id="m-price"></span></div>
+
+          <div class="actions">
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="id" id="f-id" />
+              <input type="hidden" name="nombre" id="f-nombre" />
+              <input type="hidden" name="precio" id="f-precio" />
+              <input type="hidden" name="imagen" id="f-img" />
+
+              <div class="qty-selector">
+                <label>CANTIDAD:</label>
+                <input
+                  type="number"
+                  name="cantidad"
+                  id="f-cantidad"
+                  value="1"
+                  min="1"
+                  max="10"
+                  class="steam-input"
+                />
+              </div>
+
+              <button type="submit" class="btn-add-cart">
+                AÑADIR AL CARRO
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openModalFromData(card) {
+        const id = card.getAttribute("data-id");
+        const title = card.getAttribute("data-title");
+        const price = card.getAttribute("data-price");
+        const weight = card.getAttribute("data-weight");
+        const desc = card.getAttribute("data-desc");
+        const img = card.getAttribute("data-img");
+        const rating = card.getAttribute("data-rating");
+
+        document.getElementById("m-title").innerText = title;
+        document.getElementById("m-price").innerText = price;
+        document.getElementById("m-peso").innerText = weight;
+        document.getElementById("m-desc").innerText = desc;
+        document.getElementById("m-img").src = img;
+
+        let starsHtml = "";
+        for (let i = 0; i < 5; i++) {
+          starsHtml +=
+            i < rating
+              ? '<i class="ri-star-fill"></i>'
+              : '<i class="ri-star-line"></i>';
+        }
+        document.getElementById("m-stars").innerHTML = starsHtml;
+        document.getElementById("f-id").value = id;
+        document.getElementById("f-nombre").value = title;
+        document.getElementById("f-precio").value = price;
+        document.getElementById("f-img").value = img;
+        document.getElementById("f-cantidad").value = 1;
+        document.getElementById("gameModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("gameModal").style.display = "none";
+      }
+
+      window.onkeydown = function (e) {
+        if (e.key === "Escape") closeModal();
+      };
+      window.onclick = function (e) {
+        if (e.target == document.getElementById("gameModal")) closeModal();
+      };
+    </script>
+  </body>
+</html>
