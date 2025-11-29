@@ -46,18 +46,23 @@
         <h3>Categorías</h3>
         <ul>
           <li>
-            <a href="/" class="<%= activeCat === '' ? 'active' : '' %>">Todo</a>
+            <a
+              href="/"
+              class="<%= (typeof activeCat === 'undefined' || activeCat === '') ? 'active' : '' %>"
+              >Todo</a
+            >
           </li>
+          <% if (typeof categorias !== 'undefined' && categorias != null) { %>
           <% categorias.forEach(c => { %>
           <li>
             <a
               href="/?cat=<%= c.categoria %>"
-              class="<%= activeCat === c.categoria ? 'active' : '' %>"
+              class="<%= (typeof activeCat !== 'undefined' && activeCat === c.categoria) ? 'active' : '' %>"
             >
               <%= c.categoria %>
             </a>
           </li>
-          <% }) %>
+          <% }) %> <% } %>
         </ul>
       </aside>
 
@@ -67,7 +72,8 @@
         </h2>
 
         <div class="grid">
-          <% productos.forEach(p => { %>
+          <% if (typeof productos !== 'undefined' && productos != null) { %> <%
+          productos.forEach(p => { %>
           <div
             class="card"
             data-id="<%= p.id %>"
@@ -96,7 +102,11 @@
               </div>
             </div>
           </div>
-          <% }) %>
+          <% }) %> <% } else { %>
+          <p style="color: white; padding: 20px">
+            No se pudieron cargar los juegos. Verifica la base de datos.
+          </p>
+          <% } %>
         </div>
       </div>
     </div>
